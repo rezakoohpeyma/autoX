@@ -39,6 +39,9 @@ importers:
       '@biomejs/biome':
         specifier: 2.5.4
         version: 2.5.4
+      '@biomejs/cli-linux-x64':
+        specifier: 2.5.4
+        version: 2.5.4
       '@nestjs/cli':
         specifier: ^11.0.0
         version: 11.0.24(@types/node@24.13.3)(prettier@3.9.5)
@@ -151,6 +154,18 @@ packages:
     cpu: [x64]
     os: [linux]
     libc: [musl]
+
+  '@biomejs/cli-linux-x64@2.5.4':
+    resolution: {integrity: sha512-FNxojWJkL7EajAuzBgoLe0T2G0y112M4lBrDIFl/DomFTx8yqenYOIdsRLNXvOvBBofE8hJi85LjzLmBDpY7/Q==}
+    engines: {node: '>=14.21.3'}
+    cpu: [x64]
+    os: [linux]
+
+  '@biomejs/cli-win32-arm64@2.5.4':
+    resolution: {integrity: sha512-emoXexPZIPAZkz2RKmA95WJUqK3I5MJNYtwEbL5ESciRzhmFMMyekDhNG8hpeOaK+ZGRDxAU4wvGuA5IHQ0h0w==}
+    engines: {node: '>=14.21.3'}
+    cpu: [arm64]
+    os: [win32]
 
   '@biomejs/cli-win32-x64@2.5.4':
     resolution: {integrity: sha512-U1jaluLw1qQc2Tx7/CeSoL9N5XcqIH+GWjpUAy1ouB5nVjSCMNO+NNHdY3RAs8zxNurLWAdj6pehQdCA2zyU+Q==}
@@ -2366,7 +2381,9 @@ snapshots:
       '@biomejs/cli-darwin-x64': 2.5.4
       '@biomejs/cli-linux-arm64': 2.5.4
       '@biomejs/cli-linux-arm64-musl': 2.5.4
+      '@biomejs/cli-linux-x64': 2.5.4
       '@biomejs/cli-linux-x64-musl': 2.5.4
+      '@biomejs/cli-win32-arm64': 2.5.4
       '@biomejs/cli-win32-x64': 2.5.4
 
   '@biomejs/cli-darwin-arm64@2.5.4':
@@ -2382,6 +2399,11 @@ snapshots:
     optional: true
 
   '@biomejs/cli-linux-x64-musl@2.5.4':
+    optional: true
+
+  '@biomejs/cli-linux-x64@2.5.4': {}
+
+  '@biomejs/cli-win32-arm64@2.5.4':
     optional: true
 
   '@biomejs/cli-win32-x64@2.5.4':
