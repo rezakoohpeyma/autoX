@@ -5,17 +5,17 @@ import {
 } from "@nestjs/platform-fastify";
 import { AppModule } from "./app.module";
 import { ConfigService } from "@nestjs/config";
+import { setupApp } from "./config/setup-app";
 
 async function bootstrap() {
 	const app = await NestFactory.create<NestFastifyApplication>(
 		AppModule,
 		new FastifyAdapter(),
 	);
-	const configService = app.get(ConfigService);
 	
-	app.enableCors({
-		origin: configService.get<string>("CORS_ORIGIN"),
-	});
+	setupApp(app)
+	
+	const configService = app.get(ConfigService);
 	const port = configService.get<number>("PORT")!;
 	const host = configService.get<string>("HOST")!;
 	await app.listen(port, host);
