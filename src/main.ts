@@ -12,6 +12,10 @@ async function bootstrap() {
 		new FastifyAdapter(),
 	);
 	const configService = app.get(ConfigService);
+	
+	app.enableCors({
+		origin: configService.get<string>("CORS_ORIGIN"),
+	});
 	const port = configService.get<number>("PORT")!;
 	const host = configService.get<string>("HOST")!;
 	await app.listen(port, host);
