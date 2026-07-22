@@ -3,6 +3,8 @@ import { ConfigService } from "@nestjs/config";
 import { NestFastifyApplication } from "@nestjs/platform-fastify";
 import { useContainer } from "class-validator";
 import { AllConfigType } from "./config.type";
+import { ValidationPipe } from "@nestjs/common";
+import validationOptions from "@/utils/validation-option";
 
 export function setupApp(app: NestFastifyApplication) {
 	const configService = app.get(ConfigService<AllConfigType>);
@@ -16,4 +18,5 @@ export function setupApp(app: NestFastifyApplication) {
 		configService.getOrThrow("ApiPrefix", { infer: true }),
 		{ exclude: ["/"] },
 	);
+	app.useGlobalPipes(new ValidationPipe(validationOptions));
 }
