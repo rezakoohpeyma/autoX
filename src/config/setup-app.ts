@@ -7,8 +7,8 @@ import { ClassSerializerInterceptor, ValidationPipe } from "@nestjs/common";
 import validationOptions from "@/utils/validation-option";
 import { Reflector } from "@nestjs/core";
 import { ResolvePromisesInterceptor } from "@/utils/serializer.interceptor";
-
-export function setupApp(app: NestFastifyApplication) {
+import helmet from '@fastify/helmet'
+export async function setupApp(app: NestFastifyApplication) {
 	const configService = app.get(ConfigService<AllConfigType>);
 
 	app.enableCors({
@@ -21,7 +21,7 @@ export function setupApp(app: NestFastifyApplication) {
 		{ exclude: ["/"] },
 	);
 	app.useGlobalPipes(new ValidationPipe(validationOptions));
-	
+	await app.register(helmet)
 	  app.useGlobalInterceptors(
     // ResolvePromisesInterceptor is used to resolve promises in responses because class-transformer can't do it
     // https://github.com/typestack/class-transformer/issues/549
