@@ -4,8 +4,8 @@ export type AllConfigType = {
 	Host: string;
 	DatabaseUrl: string;
 	DbUser: string;
-	DbPassword:string;
+	DbPassword: string;
 	DbName: string;
 	CorsOrigin: string;
-    ApiPrefix:string
+	ApiPrefix: string;
 };

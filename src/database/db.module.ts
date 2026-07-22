@@ -2,7 +2,7 @@ import { Global, Module } from "@nestjs/common";
 import { ConfigModule, ConfigService } from "@nestjs/config";
 import { drizzle } from "drizzle-orm/node-postgres";
 import { Pool } from "pg";
-import { schema } from "./schema"
+import { schema } from "./schema";
 @Global()
 @Module({
 	imports: [ConfigModule],
@@ -18,9 +18,10 @@ import { schema } from "./schema"
 					ssl: true,
 				});
 
-				return drizzle({ client: pool ,
-					//  schema 
-					});
+				return drizzle({
+					client: pool,
+					//  schema
+				});
 			},
 		},
 	],

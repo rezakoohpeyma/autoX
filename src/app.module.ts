@@ -10,20 +10,20 @@ import { APP_GUARD } from "@nestjs/core";
 			cache: true,
 			validationSchema: envValidation,
 		}),
-		 ThrottlerModule.forRoot({
-      throttlers: [
-        {
-          ttl: 60000,
-          limit: 10,
-        },
-      ],
-    }),
+		ThrottlerModule.forRoot({
+			throttlers: [
+				{
+					ttl: 60000,
+					limit: 10,
+				},
+			],
+		}),
 	],
-	providers : [
+	providers: [
 		{
-      provide: APP_GUARD,
-      useClass: ThrottlerGuard,
-    },
-	]
+			provide: APP_GUARD,
+			useClass: ThrottlerGuard,
+		},
+	],
 })
 export class AppModule {}
