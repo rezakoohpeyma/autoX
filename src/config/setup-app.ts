@@ -8,15 +8,16 @@ import validationOptions from "@/utils/validation-option";
 import { Reflector } from "@nestjs/core";
 import { ResolvePromisesInterceptor } from "@/utils/serializer.interceptor";
 import helmet from "@fastify/helmet";
+import { DocumentBuilder, SwaggerModule } from "@nestjs/swagger";
 export async function setupApp(app: NestFastifyApplication) {
 	const configService = app.get(ConfigService<AllConfigType>);
 
 	app.enableCors({
-		origin: configService.get("CorsOrigin"),
+		origin: configService.get("CORS_ORIGIN"),
 	});
 	useContainer(app.select(AppModule), { fallbackOnErrors: true });
 	app.enableShutdownHooks();
-	app.setGlobalPrefix(configService.getOrThrow("ApiPrefix", { infer: true }), {
+	app.setGlobalPrefix(configService.getOrThrow("API_PREFIX", { infer: true }), {
 		exclude: ["/"],
 	});
 	app.useGlobalPipes(new ValidationPipe(validationOptions));
@@ -27,4 +28,13 @@ export async function setupApp(app: NestFastifyApplication) {
 		new ResolvePromisesInterceptor(),
 		new ClassSerializerInterceptor(app.get(Reflector)),
 	);
+	const config = new DocumentBuilder()
+		.setTitle("AutoX API")
+		.setDescription("The AutoX API descriptio")
+		.setVersion("1.0")
+		.addBearerAuth()
+		.build();
+
+	const documentFactory = () => SwaggerModule.createDocument(app, config);
+	SwaggerModule.setup("api/docs", app, documentFactory);
 }

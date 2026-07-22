@@ -15,7 +15,7 @@ import { schema } from "./schema";
 
 				const pool = new Pool({
 					connectionString: databaseUrl,
-					ssl: true,
+					ssl: process.env.NODE_ENV === "production",
 				});
 
 				return drizzle({

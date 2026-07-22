@@ -13,10 +13,10 @@ async function bootstrap() {
 		AppModule,
 		new FastifyAdapter(),
 	);
-	setupApp(app);
+	await setupApp(app);
 	const configService = app.get(ConfigService<AllConfigType>);
-	const port = configService.get("Port")!;
-	const host = configService.get("Host")!;
+	const port = configService.get("PORT")!;
+	const host = configService.get("HOST")!;
 	await app.listen(port, host);
 }
 bootstrap();
