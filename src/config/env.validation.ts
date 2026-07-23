@@ -8,5 +8,5 @@ export const envValidation = Joi.object({
 	HOST: Joi.string().required(),
 	DATABASE_URL: Joi.string().required(),
 	CORS_ORIGIN: Joi.string(),
-	API_PREFIX: Joi.string(),
+	API_PREFIX: Joi.string().default("api"),
 });
