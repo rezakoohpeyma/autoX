@@ -10,12 +10,14 @@ import { ResolvePromisesInterceptor } from "@/utils/serializer.interceptor";
 import helmet from "@fastify/helmet";
 import { DocumentBuilder, SwaggerModule } from "@nestjs/swagger";
 import { Logger } from "nestjs-pino";
+import compression from "@fastify/compress";
 export async function setupApp(app: NestFastifyApplication) {
 	const configService = app.get(ConfigService<AllConfigType>);
 
 	app.enableCors({
 		origin: configService.get("CORS_ORIGIN"),
 	});
+	await app.register(compression);
 	useContainer(app.select(AppModule), { fallbackOnErrors: true });
 	app.enableShutdownHooks();
 	app.setGlobalPrefix(configService.getOrThrow("API_PREFIX", { infer: true }), {
