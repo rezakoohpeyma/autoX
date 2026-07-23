@@ -14,24 +14,26 @@ import compression from "@fastify/compress";
 export async function setupApp(app: NestFastifyApplication) {
 	const configService = app.get(ConfigService<AllConfigType>);
 
+    app.useLogger(app.get(Logger));
+	await app.register(helmet);
+
+	await app.register(compression);
 	app.enableCors({
 		origin: configService.get("CORS_ORIGIN"),
 	});
-	await app.register(compression);
 	useContainer(app.select(AppModule), { fallbackOnErrors: true });
 	app.enableShutdownHooks();
 	app.setGlobalPrefix(configService.getOrThrow("API_PREFIX", { infer: true }), {
 		exclude: ["/"],
 	});
 	app.useGlobalPipes(new ValidationPipe(validationOptions));
-	await app.register(helmet);
 	app.useGlobalInterceptors(
 		// ResolvePromisesInterceptor is used to resolve promises in responses because class-transformer can't do it
 		// https://github.com/typestack/class-transformer/issues/549
 		new ResolvePromisesInterceptor(),
 		new ClassSerializerInterceptor(app.get(Reflector)),
 	);
-	app.useLogger(app.get(Logger));
+	
 	const config = new DocumentBuilder()
 		.setTitle("AutoX API")
 		.setDescription("The AutoX API descriptio")
