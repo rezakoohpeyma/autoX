@@ -9,6 +9,7 @@ import { Reflector } from "@nestjs/core";
 import { ResolvePromisesInterceptor } from "@/utils/serializer.interceptor";
 import helmet from "@fastify/helmet";
 import { DocumentBuilder, SwaggerModule } from "@nestjs/swagger";
+import { Logger } from "nestjs-pino";
 export async function setupApp(app: NestFastifyApplication) {
 	const configService = app.get(ConfigService<AllConfigType>);
 
@@ -28,6 +29,7 @@ export async function setupApp(app: NestFastifyApplication) {
 		new ResolvePromisesInterceptor(),
 		new ClassSerializerInterceptor(app.get(Reflector)),
 	);
+	app.useLogger(app.get(Logger));
 	const config = new DocumentBuilder()
 		.setTitle("AutoX API")
 		.setDescription("The AutoX API descriptio")
