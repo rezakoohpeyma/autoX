@@ -6,6 +6,6 @@ export type AllConfigType = {
 	DB_USER: string;
 	DB_PASSWORD: string;
 	DB_NAME: string;
-	CORS_ORIGIN: string;
+	CORS_ORIGIN?: string;
 	API_PREFIX: string;
 };
